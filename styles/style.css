@@ -1,5 +1,10 @@
-h1 {
-	color: blue;
-	background-color: yellow;
-	border: 1px solid black;
+body {
+  background-color: black;
+  background-image: radial-gradient(
+    rgba(0, 150, 0, 0.75), black 120%
+  );
+  height: 100vh;
+
+  color: white;
+  font: 1.3rem Inconsolata, monospace;
 }
