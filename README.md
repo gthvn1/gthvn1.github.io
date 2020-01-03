@@ -1,7 +1,3 @@
-# gthvn&Oslash;.github.io
-
-Dummy page. Content of https://gthvn0.github.io/
-
-# Test react
-
-A react playground project is published here https://gthvn0.github.io/react-gh-pages
+This web page is just listing links to projects that are
+not real ones but more playground for testing different
+piece of code.
