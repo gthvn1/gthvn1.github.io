@@ -1,39 +1,8 @@
-/* Style taken from https://css-tricks.com/old-timey-terminal-styling/ */
 body {
   background-color: black;
-  background-image: radial-gradient(
-    rgba(0, 150, 0, 0.75), black 120%
-  );
-  height: 100vh;
-  margin: 0;
-  overflow: hidden;
-  padding: 2rem;
-  color: white;
-  font: 1.3rem Inconsolata, monospace;
-  text-shadow: 0 0 5px #C8C8C8;
-  &::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: repeating-linear-gradient(
-      0deg,
-      rgba(black, 0.15),
-      rgba(black, 0.15) 1px,
-      transparent 1px,
-      transparent 2px
-    );
-    pointer-events: none;
-  }
-}
-::selection {
-  background: #0080FF;
-  text-shadow: none;
-}
-pre {
-  margin: 0;
+  color: lime;
+  text-shadow: 0 0 0.5px white;
+  background-image: radial-gradient(rgba(0, 100, 0, 0.75), black 120%);
 }
 
 a {
@@ -55,4 +24,70 @@ a:hover {
 
 a:active {
   color: yellow;
+}
+
+#title {
+  color: yellow;
+  font-style: italic;
+  font-size: large;
+}
+
+#git {
+  color: teal;
+}
+
+#command {
+  color: silver;
+  font-style: italic;
+}
+
+#path {
+  color: white;
+}
+
+#prompt {
+  animation-name: blinky;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+
+  -webkit-animation-name: blinky;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-iteration-count: infinite;
+
+  -moz-animation-name: blinky;
+  -moz-animation-duration: 1s;
+  -moz-animation-iteration-count: infinite;
+
+  -o-animation-name: blinky;
+  -o-animation-duration: 1s;
+  -o-animation-iteration-count: infinite;
+
+  -ms-animation-name: blinky;
+  -ms-animation-duration: 1s;
+  -ms-animation-iteration-count: infinite;
+}
+
+@keyframes blinky {
+  from {opacity: 1;}
+  to {opacity: 0;}
+}
+
+@-webkit-keyframes blinky {
+  from {opacity: 1;}
+  to {opacity: 0;}
+}
+
+@-moz-keyframes blinky {
+  from {opacity: 1;}
+  to {opacity: 0;}
+}
+
+@-o-keyframes blinky {
+  from {opacity: 1;}
+  to {opacity: 0;}
+}
+
+@-ms-keyframes blinky {
+  from {opacity: 1;}
+  to {opacity: 0;}
 }
