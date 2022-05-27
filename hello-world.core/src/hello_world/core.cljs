@@ -10,14 +10,42 @@
 
 ;; define your app data so that it doesn't get over-written on reload
 (defonce app-state (atom {:text "Hello world!"}))
+(def click-count (atom 0))
 
 (defn get-app-element []
   (gdom/getElement "app"))
 
+(defn simple-component
+  []
+  [:div
+   [:p "I am a simple component"]
+   [:p.someclass
+    "I have "
+    [:strong "bold"]
+    [:span {:style {:color "green"}} " and green "]
+    "text."]])
+
+(defn lister
+  [items]
+  [:ul
+   (for [item items]
+     ^{:key item} [:li item])])
+
+(defn counting-click
+  []
+  [:div
+   [:code "click-count"] " has value: "
+   @click-count ". "
+   [:input {:type "button"
+            :value "Click me!"
+            :on-click (fn [] (swap! click-count inc))}]])
+
 (defn hello-world []
   [:div
    [:h1 (:text @app-state)]
-   [:h3 "Edit this in src/hello_world/core.cljs and watch it change!"]])
+   [counting-click]
+   [simple-component]
+   [lister '("Bonjour" "tout" "le" "monde")]])
 
 (defn mount [el]
   (rdom/render [hello-world] el))
