@@ -4,10 +4,6 @@
    [reagent.core :as reagent :refer [atom]]
    [reagent.dom :as rdom]))
 
-(println "This text is printed from src/hello_world/core.cljs. Go ahead and edit it and see reloading in action.")
-
-(defn multiply [a b] (* a b))
-
 ;; define your app data so that it doesn't get over-written on reload
 (defonce app-state (atom {:text "Hello world!"}))
 (def click-count (atom 0))
@@ -40,12 +36,38 @@
             :value "Click me!"
             :on-click (fn [] (swap! click-count inc))}]])
 
+(defn timer-component []
+  (let [seconds-elapsed (atom 0)]     ;; setup, and local state
+    (fn []        ;; inner, render function is returned
+      (js/setTimeout #(swap! seconds-elapsed inc) 1000)
+      [:div "Seconds Elapsed: " @seconds-elapsed])))
+
+(defn atom-input
+  "value is an atom"
+  [value]
+  [:input {:type "text"
+           :value @value
+           :on-change #(reset! value (-> % .-target .-value))}])
+
+(defn shared-state
+  []
+  (let [val (atom "foo")]
+    (fn
+      []
+      [:div
+       [:p "The value is now: " @val]
+       [:p "Change it here: " [atom-input val]]])))
+
 (defn hello-world []
   [:div
-   [:h1 (:text @app-state)]
-   [counting-click]
-   [simple-component]
-   [lister '("Bonjour" "tout" "le" "monde")]])
+   [:div
+    [timer-component]]
+   [:div
+    [:h1 (:text @app-state)]
+    [counting-click]
+    [simple-component]
+    [lister '("Bonjour" "tout" "le" "monde")]
+    [shared-state]]])
 
 (defn mount [el]
   (rdom/render [hello-world] el))
