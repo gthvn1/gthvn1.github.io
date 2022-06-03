@@ -8,9 +8,6 @@
 (defonce app-state (atom {:text "Hello world!"}))
 (def click-count (atom 0))
 
-(defn get-app-element []
-  (gdom/getElement "app"))
-
 (defn simple-component
   []
   [:div
@@ -61,20 +58,17 @@
 (defn hello-world []
   [:div
    [:div
-    [timer-component]]
-   [:div
     [:h1 (:text @app-state)]
+    [timer-component]]
     [counting-click]
+   [:div
     [simple-component]
     [lister '("Bonjour" "tout" "le" "monde")]
     [shared-state]]])
 
-(defn mount [el]
-  (rdom/render [hello-world] el))
-
 (defn mount-app-element []
-  (when-let [el (get-app-element)]
-    (mount el)))
+  (when-let [el (gdom/getElement "app")]
+    (rdom/render [hello-world] el)))
 
 ;; conditionally start your application based on the presence of an "app" element
 ;; this is particularly helpful for testing this ns without launching the app
