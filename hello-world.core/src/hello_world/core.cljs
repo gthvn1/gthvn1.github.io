@@ -1,8 +1,9 @@
 (ns ^:figwheel-hooks hello-world.core
   (:require
-   [goog.dom :as gdom]
-   [reagent.core :as reagent :refer [atom]]
-   [reagent.dom :as rdom]))
+    [brainfuck :as bf :refer [bf_run]]
+    [goog.dom :as gdom]
+    [reagent.core :as reagent :refer [atom]]
+    [reagent.dom :as rdom]))
 
 ;; define your app data so that it doesn't get over-written on reload
 (defonce app-state (atom {:text "Hello world!"}))
@@ -55,12 +56,20 @@
        [:p "The value is now: " @val]
        [:p "Change it here: " [atom-input val]]])))
 
+(defn hello-bf []
+  [:div
+   [:p (bf_run (str "++++++++"
+                    "[>++++[>++>+++>+++>+<<<<-]"
+                      ">+>+>->>+[<]<-]>>.>---.+++++++.."
+                    "+++.>>.<-.<.+++.------.--------.>>+.>++."))]])
+
 (defn hello-world []
   [:div
    [:div
     [:h1 (:text @app-state)]
     [timer-component]]
     [counting-click]
+    [hello-bf]
    [:div
     [simple-component]
     [lister '("Bonjour" "tout" "le" "monde")]
