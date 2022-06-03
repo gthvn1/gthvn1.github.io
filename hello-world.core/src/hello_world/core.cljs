@@ -9,16 +9,6 @@
 (defonce app-state (atom {:text "Hello world!"}))
 (def click-count (atom 0))
 
-(defn simple-component
-  []
-  [:div
-   [:p "I am a simple component"]
-   [:p.someclass
-    "I have "
-    [:strong "bold"]
-    [:span {:style {:color "green"}} " and green "]
-    "text."]])
-
 (defn lister
   [items]
   [:ul
@@ -45,6 +35,8 @@
   [value]
   [:input {:type "text"
            :value @value
+           :size 100
+           :rows "4"
            :on-change #(reset! value (-> % .-target .-value))}])
 
 (defn shared-state
@@ -57,23 +49,33 @@
        [:p "Change it here: " [atom-input val]]])))
 
 (defn hello-bf []
-  [:div
-   [:p (bf_run (str "++++++++"
-                    "[>++++[>++>+++>+++>+<<<<-]"
-                      ">+>+>->>+[<]<-]>>.>---.+++++++.."
-                    "+++.>>.<-.<.+++.------.--------.>>+.>++."))]])
+  (let [bf_code (atom (str "++++++++"
+                           "[>++++[>++>+++>+++>+<<<<-]"
+                           ">+>+>->>+[<]<-]>>.>---.+++++++.."
+                           "+++.>>.<-.<.+++.------.--------.>>+.>++."))]
+    (fn
+      []
+      [:div
+       [:p
+        "BF Interpertator: "
+        [:span {:style
+                {:background-color "powderblue"
+                 :color "green"
+                 :font-weight "bold"}} (bf_run @bf_code)]]
+       [:p "Enter your BF code" [atom-input bf_code]]])))
 
 (defn hello-world []
   [:div
    [:div
     [:h1 (:text @app-state)]
-    [timer-component]]
+    [:h2 "Useless stuff"]
+    [timer-component]
     [counting-click]
-    [hello-bf]
+    [:h2 "Brainfuck"]
+    [hello-bf]]
    [:div
-    [simple-component]
-    [lister '("Bonjour" "tout" "le" "monde")]
-    [shared-state]]])
+    [:h2 "Another pointless thing"]
+    [lister '("Hello" "Every" "Body")]]])
 
 (defn mount-app-element []
   (when-let [el (gdom/getElement "app")]
