@@ -1,4 +1,4 @@
-(ns brainfuck)
+(ns brainfuck.core)
 
 ;; Brainfuck has 8 commands
 ;; +--------+--------+-------------------------------------------------------+

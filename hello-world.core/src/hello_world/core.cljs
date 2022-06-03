@@ -1,6 +1,6 @@
 (ns ^:figwheel-hooks hello-world.core
   (:require
-    [brainfuck :as bf :refer [bf_run]]
+    [brainfuck.core :as bf :refer [bf_run]]
     [goog.dom :as gdom]
     [reagent.core :as reagent :refer [atom]]
     [reagent.dom :as rdom]))
