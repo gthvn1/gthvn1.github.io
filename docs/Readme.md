@@ -11,6 +11,3 @@
 To generate wasm file:
 - `zig build-lib fibo.zig -target wasm32-freestanding -dynamic`
   - **Note**: without dynamic it generates a ".a" file.
-
-To run it you can use the index.js
-- `node index.js`
