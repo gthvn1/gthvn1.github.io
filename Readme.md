@@ -1,13 +1,18 @@
 # gthvn1.github.io
 
+- New version is in *[docs](https://github.com/gthvn1/gthvn1.github.io/tree/master/docs)*
+- Old version is in *[docs.old-site/](https://github.com/gthvn1/gthvn1.github.io/tree/master/docs.old-site)*
+
 ## New version
 
-New version is coming...
+This new version is for testing [Zig](https://ziglang.org/) and [WebAssembly](https://webassembly.org/).
+For the moment we just compute the Fibonnaci sequence to see how JS and Wasm interact. 
 
 ---
+
 ## Old version...
 
-This old version was just used for testing clojurescript and reagent. The *docs/* repo has been renamed *docs.old-site/* and so it is not used anymore.
+This old version was just used for testing clojurescript and reagent.
 
 ### Build & install
 - Repo created using `lein new figwheel-main hello-world.core -- --reagent`
