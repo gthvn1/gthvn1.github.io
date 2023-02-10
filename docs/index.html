@@ -3,10 +3,78 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="css/style.css" rel="stylesheet" type="text/css">
-    <link rel="icon" href="https://clojurescript.org/images/cljs-logo-icon-32.png">
+    <style>
+      body {
+        Font: 0.875em/1.5em "Microsoft YaHei", "ptsans", "Arial", sans serif;
+        font-size: 12px;
+      }
+      
+      .intro {
+        background: #2B6695;
+        border-radius: 6px 6px 6px 6px;
+        box-shadow: 0 0 0 1px #5F5A4B, 1px 1px 6px 1px rgba(10, 10, 0, 0.5);
+        color: #FFFFFF;
+        Font family: "Microsoft YaHei", "Tahoma", "boldface", Arial;
+        font-size: 18px;
+        font-weight: bold;
+        height: 25px;
+        line-height: 25px;
+        margin: 18px 0 !important;
+        padding: 8px 0 5px 5px;
+        text-shadow: 2px 2px 3px #222222;
+      }
+
+      .result {
+      	background: #2B6600;
+      	border-radius: 6px 6px 6px 6px;
+      	box-shadow: 0 0 0 1px #5F5A4B, 1px 1px 6px 1px rgba(10, 10, 0, 0.5);
+      	color: #FFFFFF;
+      	Font family: "Microsoft YaHei", "Tahoma", "boldface", Arial;
+      	font-size: 15px;
+      	font-weight: bold;
+      	height: 24px;
+      	line-height: 23px;
+      	margin: 12px 0 !important;
+      	padding: 5px 0 5px 10px;
+      	text-shadow: 2px 2px 3px #222222;
+      }
+    </style>
   </head>
   <body>
-    Winter is coming...
+    <p class="intro">
+      click for generating the next number in the fibonnaci sequence
+    </p>
+    <button>Click here</button>
+    <p class="result">
+      F(<span id="n">0</span>) = <span id="fib">1</span>
+    </p>
+    <script>
+      let $ = document.querySelector.bind(document);
+      let n = 0;
+      let a = 0; // Fn - 1
+      let b = 1; // Fn - 2
+      let fib = 0;
+
+      function update() {
+        $('#n').textContent = `${n}`;
+        $('#fib').textContent = `${fib}`;
+      }
+
+      update();
+
+      $('button').addEventListener('click', event => {
+        n++;
+        if (n <= 1) {
+          fib = n;
+        } else {
+          let tmp = a;
+          fib = a + b; // compute fibo number
+          a = b;       // update F(n-1) and F(n-2)
+          b += tmp;
+        }
+
+        update();
+      });
+    </script>
   </body>
 </html>
