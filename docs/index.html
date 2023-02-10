@@ -104,7 +104,8 @@ body {
       update();
 
       $('button').addEventListener('click', event => {
-        fib = instance.exports.fibo(n++);
+        n++;
+        fib = instance.exports.fibo(n);
         update();
       });
     </script>
