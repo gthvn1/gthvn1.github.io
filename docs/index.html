@@ -9,7 +9,7 @@
         font-size: 12px;
       }
       
-      .intro {
+      .button {
         background: #2B6695;
         border-radius: 6px 6px 6px 6px;
         box-shadow: 0 0 0 1px #5F5A4B, 1px 1px 6px 1px rgba(10, 10, 0, 0.5);
@@ -17,7 +17,7 @@
         Font family: "Microsoft YaHei", "Tahoma", "boldface", Arial;
         font-size: 18px;
         font-weight: bold;
-        height: 25px;
+        height: 55px;
         line-height: 25px;
         margin: 18px 0 !important;
         padding: 8px 0 5px 5px;
@@ -41,12 +41,11 @@
     </style>
   </head>
   <body>
-    <p class="intro">
-      click for generating the next number in the fibonnaci sequence
-    </p>
-    <button>Click here</button>
+    <button class="button">
+      Click me to generate the next number of the Fibonnaci sequence...
+    </button>
     <p class="result">
-      F(<span id="n">0</span>) = <span id="fib">1</span>
+      Fibonnaci(<span id="n">0</span>) = <span id="fib">1</span>
     </p>
     <script>
       let $ = document.querySelector.bind(document);
