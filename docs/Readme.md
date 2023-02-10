@@ -1,4 +1,9 @@
-# Play with wasm and Zig
+# Play with Web Assembly and Zig
+
+## Links
+
+- [Wasm](https://webassembly.org/)
+- [Zig](https://ziglang.org/)
 
 ## Steps
 
