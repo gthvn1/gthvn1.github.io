@@ -9,6 +9,7 @@
 
 - [X] wrote the html and JS to check how they interact. It is a placeholder for our code.
 - [X] get the result from wasm.
+- [X] implement it in full wasm by hand.
 - [ ] Do more funky things
 
 **Note1**: To do more funky things we followed the really cool presentation from Ben Smith called
