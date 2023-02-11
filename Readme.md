@@ -6,9 +6,9 @@
 ## New version
 
 ### Changelog
-- [11/02/2023]:
+- [11/02/2023]
   - Use a WASM version for fibonacci. It is shorter and it works with i64. 
-- [10/02/2023]:
+- [10/02/2023]
   - Start the new version.
   - The Goal is testing [Zig](https://ziglang.org/) and [WebAssembly](https://webassembly.org/).
   - For the moment we just compute the Fibonaci sequence to see how JS and Wasm interact.
@@ -17,7 +17,7 @@
 
 ## Old version...
 
-This old version was just used for testing clojurescript and reagent.
+The old version was just used for testing clojurescript and reagent.
 
 ### Build & install
 - Repo created using `lein new figwheel-main hello-world.core -- --reagent`
