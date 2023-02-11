@@ -5,8 +5,13 @@
 
 ## New version
 
-This new version is for testing [Zig](https://ziglang.org/) and [WebAssembly](https://webassembly.org/).
-For the moment we just compute the Fibonnaci sequence to see how JS and Wasm interact. 
+### Changelog
+- [11/02/2023]:
+  - Use a WASM version for fibonacci. It is shorter and it works with i64. 
+- [10/02/2023]:
+  - Start the new version.
+  - The Goal is testing [Zig](https://ziglang.org/) and [WebAssembly](https://webassembly.org/).
+  - For the moment we just compute the Fibonaci sequence to see how JS and Wasm interact.
 
 ---
 
