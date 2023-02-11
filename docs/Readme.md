@@ -11,6 +11,10 @@
 - [X] get the result from wasm.
 - [ ] Do more funky things
 
+**Note1**: To do more funky things we followed the really cool presentation from Ben Smith called
+[Hand-crafted WebAssembly Demos](https://www.youtube.com/watch?v=qEq3F9Z8z6w&t=21s).
+**Note2**: We will probably try to do it in full Wasm.
+
 ## Zig to wasm
 
 To generate wasm file:
