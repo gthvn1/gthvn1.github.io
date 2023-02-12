@@ -7,14 +7,15 @@
 
 ## Steps
 
-- [X] wrote the html and JS to check how they interact. It is a placeholder for our code.
+- [X] wrote the html and JS to check how they interact. It is a placeholder for
+      our code.
 - [X] get the result from wasm.
-- [X] code [Fibonacci in wasm](https://github.com/gthvn1/wasm_sandkasten/tree/master/fibonacci).
+- [X] [Fibonacci in wasm](https://github.com/gthvn1/wasm_sandkasten/tree/master/fibonacci).
+- [ ] Look at canvas
 - [ ] do more funky things
 
-**Note1**: To do more funky things we followed the really cool presentation from Ben Smith called
-[Hand-crafted WebAssembly Demos](https://www.youtube.com/watch?v=qEq3F9Z8z6w&t=21s).
-
+**Note1**: To do more funky things we followed the really cool presentation from
+Ben Smith called [Hand-crafted WebAssembly Demos](https://www.youtube.com/watch?v=qEq3F9Z8z6w&t=21s).
 
 ## Zig to wasm
 
