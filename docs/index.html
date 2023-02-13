@@ -23,13 +23,14 @@
         body {
             background: #fdf6e3;
             color: #073642;
-            font: Tahoma, Verdana, sans-serif;
+            font: Dekko, Aclonica, Abel, Verdana, sans-serif;
         }
 
         h1 { color: #2aa198; }
         h2 { color: #93a1a1; }
 
-        .result  { color: #268bd2; font-weight: bolder }
+        .result { color: #268bd2; font-weight: bolder }
+        .debug  { color: #d33682; font-style: italic }
 
         .checked {
             text-decoration: line-through;
@@ -75,10 +76,11 @@
 
     <h2> Demo </h2>
     <p> Code is available <a href="https://github.com/gthvn1/gthvn1.github.io/tree/master/docs">
-        on github</a></p> 
+        on github</a></p>
     <p class="result"> -> Fibonaci(<span id="n">0</span>) = <span id="fib">0</span> </p>
+    <p class="debug">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[debug] f(<span id="a">?</span>) = <span id="fa">?</span>, f(<span id="b">?</span>) = <span id="fb">?</span></p>
     <button>
-        Click to get the next number of the Fibonaci sequence
+        Click to get the next Fibonacci sequence number
     </button>
 
     <script>
@@ -90,16 +92,32 @@
             const {module, instance} = await WebAssembly.instantiate(bytes);
             const exports = instance.exports;
 
-            let u32 = new Uint32Array(exports.mem.buffer, 0x10, 1);
+            // In wasm memory we put 3*64bits values at the beginning.
+            // So let's create a view of those 24 bytes
+            let memView = new Uint8Array(exports.mem.buffer, 0x0, 24);
+            let buff0 = new DataView(memView.buffer, 0x0, 8);
+            let buff1 = new DataView(memView.buffer, 0x8, 8);
+            let buff2 = new DataView(memView.buffer, 0x10, 8);
 
             let $ = document.querySelector.bind(document);
             let n = 0;
 
             $('button').addEventListener('click', event => {
+                if (n == 0) {
+                    $('#b').textContent = `${n}`
+                    $('#fb').textContent = buff1.getBigInt64(0, true);
+                } else {
+                    $('#a').textContent = `${n - 1}`
+                    $('#fa').textContent = buff0.getBigInt64(0, true);
+                    $('#b').textContent = `${n}`
+                    $('#fb').textContent = buff1.getBigInt64(0, true);
+                }
+
                 n++;
                 $('#n').textContent = `${n}`;
                 exports.fibo(BigInt(n));
-                $('#fib').textContent = u32;
+
+                $('#fib').textContent = buff2.getBigInt64(0, true);
             });
         })();
     </script>
