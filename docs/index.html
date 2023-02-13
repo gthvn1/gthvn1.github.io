@@ -1,46 +1,53 @@
 <!DOCTYPE html>
 <head>
     <style>
-       /* Solorized
-        $base03:    #002b36;
-        $base02:    #073642;
-        $base01:    #586e75;
-        $base00:    #657b83;
-        $base0:     #839496;
-        $base1:     #93a1a1;
-        $base2:     #eee8d5;
-        $base3:     #fdf6e3;
-        $yellow:    #b58900;
-        $orange:    #cb4b16;
-        $red:       #dc322f;
-        $magenta:   #d33682;
-        $violet:    #6c71c4;
-        $blue:      #268bd2;
-        $cyan:      #2aa198;
-        $green:     #859900;
-        */
-
-        body {
-            background: #fdf6e3;
-            color: #073642;
-            font: Dekko, Aclonica, Abel, Verdana, sans-serif;
+        :root {
+          --nord0 : #2e3440;
+          --nord1 : #3b4252;
+          --nord2 : #434c5e;
+          --nord3 : #4c566a;
+          --nord4 : #d8dee9;
+          --nord5 : #e5e9f0;
+          --nord6 : #eceff4;
+          --nord7 : #8fbcbb;
+          --nord8 : #88c0d0;
+          --nord9 : #81a1c1;
+          --nord10: #5e81ac;
+          --nord11: #bf616a;
+          --nord12: #d08770;
+          --nord13: #ebcb8b;
+          --nord14: #a3be8c;
+          --nord15: #b48ead;
         }
 
-        h1 { color: #2aa198; }
-        h2 { color: #93a1a1; }
+        body {
+            background: var(--nord0);
+            color: var(--nord5);
+            margin: 10px 50px 20px;
+            font: Dekko, Aclonica, Abel, Verdana, sans-serif
+        }
+
+        a:link    { color: var(--nord7) }
+        a:visited { color: var(--nord8) }
+        a:hover   { color: var(--nord9) }
+        a:active  { color: var(--nord10) }
+
+        h1 { color: var(--nord11); text-align: center; font-style: italic }
+        h2 { color: var(--nord12) }
+        h3 { color: var(--nord13) }
 
         button {
-              background-color: #859900;
-              color: white;
+              background-color: var(--nord14);
+              color: var(--nord6);
               padding: 15px 32px;
               text-align: center;
               display: inline-block;
               font-size: 16px;
         }
 
-        .result { color: #268bd2; font-weight: bolder }
-        .debug  { color: #d33682; font-style: italic }
-        .checked { text-decoration: line-through; font-style: italic }
+        .box    { color: var(--nord15) }
+        .result { color: var(--nord4); font-weight: bolder }
+        .debug  { color: var(--nord6); font-style: italic }
     </style>
 </head>
 
@@ -57,7 +64,7 @@
     </ul>
 
     <h2> Steps </h2>
-    
+
     <p>
         <a href="https://github.com/gthvn1/gthvn1.github.io/blob/master/docs/fibonacci.wat">
         fibonacci.wat</a> wasm file is available
@@ -65,17 +72,18 @@
     </p>
 
     <ul>
-        <li class="checked"> Wrote HTML and JS to check how they interact</li>
-        <li class="checked"> Get the result from wasm</li>
-        <li class="checked"> Start by implementing Fibonacci in wasm</li>
-        <li class="checked"> Before looking canvas we will look how to exchange data from memory
+        <li> <span class="box">&#9745;</span> Wrote HTML and JS to check how they interact</li>
+        <li> <span class="box">&#9745;</span> Get the result from wasm</li>
+        <li> <span class="box">&#9745;</span> Start by implementing Fibonacci in wasm</li>
+        <li> <span class="box">&#9745;</span> Before looking canvas we will look how to exchange data from memory
             because it will be usefull when playing with canvas
         </li>
-        <li> Look at canvas</li>
+        <li> <span class="box">&#9744;</span> Look at canvas </li>
         <ul>
-            <li class="checked"> Create canvas</li>
-            <li class="checked"> Draw something from JS</li>
-            <li> Fill the canvas from WASM</li>
+            <li> <span class="box">&#9745;</span> Create canvas </li>
+            <li> <span class="box">&#9745;</span> Draw something from JS </li>
+            <li> <span class="box">&#9744;</span> Fill the canvas from WASM </li>
+            <li> <span class="box">&#9744;</span> Add interactivity </li>
             <li> ...and do more fun things</li>
         </ul>
     </ul>
@@ -101,7 +109,7 @@
         function draw_something() {
             var c = document.getElementById("canvas");
             var ctx = c.getContext("2d");
-           
+
             // start by filling all canvas in red
             ctx.beginPath();
             ctx.rect(0,0, 100, 100);
