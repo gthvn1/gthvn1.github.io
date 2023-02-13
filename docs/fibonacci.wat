@@ -1,4 +1,4 @@
-;; Page in WASM are 65Kb
+;; Page in WASM are 64Kb
 ;; Bytes are 8-bit
 ;; Memory map:
 ;;   [0x000 .. 0x0007] F(N-2): i64
@@ -22,7 +22,7 @@
     (then (i64.store (i32.const 0x10) (i64.const 1)))
     (else 
       ;; for N >= 2 we loop
-      (local.set $step (i64.const 2)) ;; used to loop
+      (local.set $step (i64.const 2))
 
       (loop $enter_loop
         ;; compute F(n)
@@ -37,7 +37,7 @@
 
         ;; Update F(n-1) with value of F(N)
         (i64.store (i32.const 0x8)
-          (i64.load (i32.const 0x10))) ;; load F(n)
+          (i64.load (i32.const 0x10)))
 
         ;; update the step
         (local.set $step (i64.add (i64.const 1 (local.get $step))))
