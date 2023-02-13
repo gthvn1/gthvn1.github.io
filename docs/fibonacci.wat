@@ -1,36 +1,50 @@
-(module
-  ;; F0 = 0
-  ;; F1 = 1
-  ;; F(N) = F(N-1) + F(N-2)
-  (func $fibo (export "fibo") (param $n i64) (result i64)
-    (local $i i64) ;; index used in the loop
-    (local $fn1 i64) ;; used to store F(N-1)
-    (local $fn2 i64) ;; used to store F(N-2)
-    (local $tmp i64) ;; used it the loop to save value
+;; Page in WASM are 65Kb
+;; Bytes are 8-bit
+;; Memory map:
+;;   [0x000 .. 0x0007] F(N-2): i64
+;;   [0x008 .. 0x000F] F(N-1): i64
+;;   [0x010 .. 0x0017] F(N)  : i64
+(memory (export "mem") 1)
 
-    ;; f(0) = 0 and f(1) = 1
-    (if (i64.le_s (i64.const 1 (local.get $n)))
-      (then (return (local.get $n))))
+(func $fibo (export "fibo") (param $n i64)
+  (local $step i64)
 
-    ;; Initialiaze local variables
-    (local.set $i   (i64.const 1)) ;; start loop at 1
-    (local.set $fn1 (i64.const 1)) ;; F(N-1) = F(1)
-    (local.set $fn2 (i64.const 0)) ;; F(N-2) = F(0)
+  ;; Init F(n-2) = 0 and F(n-1) = 1
+  (i64.store (i32.const 0x0) (i64.const 0))
+  (i64.store (i32.const 0x8) (i64.const 1))
 
-    ;; Enter the loop with i == 2
-    (loop $start_loop
-      (local.set $tmp (local.get $fn2))
-      (local.set $fn2 (local.get $fn1))
-      (local.set $fn1 (i64.add (local.get $tmp (local.get $fn1))))
+  ;; F(0) = 0
+  (if (i64.eq (i64.const 0) (local.get $n))
+    (then (i64.store (i32.const 0x10) (i64.const 0))))
 
-      ;; update the index
-      (local.set $i (i64.add (i64.const 1 (local.get $i))))
+  ;; F(1) = 1
+  (if (i64.eq (i64.const 1) (local.get $n))
+    (then (i64.store (i32.const 0x10) (i64.const 1)))
+    (else 
+      ;; for N >= 2 we loop
+      (local.set $step (i64.const 2)) ;; used to loop
 
-      ;; we loop until index
-      (br_if $start_loop
-        (i64.ne (local.get $n) (local.get $i)))
+      (loop $enter_loop
+        ;; compute F(n)
+        (i64.store (i32.const 0x10) ;; Offset of F(n)
+          (i64.add ;; F(n-1) + F(n-2)
+            (i64.load (i32.const 0x8))
+            (i64.load (i32.const 0x0))))
+
+        ;; Update F(n-2) with value of F(n-1)
+        (i64.store (i32.const 0x0) ;; Offset of F(n-2)
+          (i64.load (i32.const 0x8))) ;; value of F(n-1)
+
+        ;; Update F(n-1) with value of F(N)
+        (i64.store (i32.const 0x8)
+          (i64.load (i32.const 0x10))) ;; load F(n)
+
+        ;; update the step
+        (local.set $step (i64.add (i64.const 1 (local.get $step))))
+
+        (br_if $enter_loop
+          (i64.le_s (local.get $step) (local.get $n)))
+      )
     )
-
-    local.get $fn1
   )
 )

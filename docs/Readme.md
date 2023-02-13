@@ -10,7 +10,7 @@
       our code.
 - [X] get the result from wasm.
 - [X] Copy and use [Fibonacci in wasm](https://github.com/gthvn1/wasm_sandkasten/tree/master/fibonacci).
-- [ ] Before looking canvas we will look how to exchange data from memory because it
+- [X] Before looking canvas we will look how to exchange data from memory because it
       will be usefull when playing with canvas...
 - [ ] Look at canvas
 - [ ] do more funky things

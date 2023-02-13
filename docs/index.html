@@ -1,18 +1,41 @@
 <!DOCTYPE html>
 <head>
     <style>
+       /* Solorized
+        $base03:    #002b36;
+        $base02:    #073642;
+        $base01:    #586e75;
+        $base00:    #657b83;
+        $base0:     #839496;
+        $base1:     #93a1a1;
+        $base2:     #eee8d5;
+        $base3:     #fdf6e3;
+        $yellow:    #b58900;
+        $orange:    #cb4b16;
+        $red:       #dc322f;
+        $magenta:   #d33682;
+        $violet:    #6c71c4;
+        $blue:      #268bd2;
+        $cyan:      #2aa198;
+        $green:     #859900;
+        */
+
         body {
-            background: #181818;
-            color: #FFF;
-            font-family: Arial, sans-serif;
+            background: #fdf6e3;
+            color: #073642;
+            font: Tahoma, Verdana, sans-serif;
         }
+
+        h1 { color: #2aa198; }
+        h2 { color: #93a1a1; }
+        p  { color: #268bd2; font-weight: bolder }
 
         .checked {
             text-decoration: line-through;
         }
 
         button {
-              background-color: #4CAF50; /* Green */
+              background-color: #859900;
               color: white;
               padding: 15px 32px;
               text-align: center;
@@ -23,37 +46,48 @@
 </head>
 
 <body>
-    <p>
-    Currently we are just testing how Webassembly interact with javascript. We start
-    with simple things like computing the Fibonacci sequence and step by step we will
-    try to code a simple game in Webassembly.
-    </p>
+    <h1>Let's play with Web Assembly</h1>
+
+    <h2> Links </h2>
     <ul>
-        <li class="checked">Use wasm to compute Fibonacci sequence</li>
-        <li class="checked">Exports function into JS</li>
-        <li> Use memory to exchange data between Wasm and JS</li>
-        <li> Play with Canvas</li>
-        <ul>
-            <li>clean canvas</li>
-            <li>draw something</li>
-            <li>move it with the mouse</li>
-            <li> ... <i>next steps to be considered</i> ...</li>
-        </ul>
+        <li><a href="https://webassembly.org/"> Web Assembly</a></li>
+        <li><a href="https://www.youtube.com/watch?v=qEq3F9Z8z6w&t=21s">
+                Hand-crafted WebAssembly Demos from Ben Smith</a></li>
     </ul>
+
+    <h2> Steps </h2>
+    <ul>
+        <li class="checked"> Wrote the html and JS to check how they interact. It is a placeholder for
+            our code.</li>
+        <li class="checked"> Get the result from wasm.</li>
+        <li class="checked">
+            Start from
+            <a href="https://github.com/gthvn1/wasm_sandkasten/tree/master/fibonacci">Fibonacci in wasm</a></li>
+        <li class="checked">
+            Before looking canvas we will look how to exchange data from memory because it
+            will be usefull when playing with canvas... Look at
+            <a href="https://github.com/gthvn1/gthvn1.github.io/blob/master/docs/fibonacci.wat">the source
+                code Fibonacci.wat</a>.</li>
+        <li>  Look at canvas</li>
+        <li>  do more funky things</li>
+    </ul>
+
+    <h2> Demo </h2>
+    <p> -> Fibonaci(<span id="n">0</span>) = <span id="fib">0</span> </p>
     <button>
         Click to get the next number of the Fibonaci sequence
     </button>
-    <p>
-        Fibonaci(<span id="n">0</span>) = <span id="fib">0</span>
-    </p>
+
     <script>
         let bytes = new Uint8Array([
-            0x00,0x61,0x73,0x6d,0x01,0x00,0x00,0x00,0x01,0x06,0x01,0x60,0x01,0x7e,0x01,0x7e,0x03,0x02,0x01,0x00,0x07,0x08,0x01,0x04,0x66,0x69,0x62,0x6f,0x00,0x00,0x0a,0x3f,0x01,0x3d,0x01,0x04,0x7e,0x20,0x00,0x42,0x01,0x57,0x04,0x40,0x20,0x00,0x0f,0x0b,0x42,0x01,0x21,0x01,0x42,0x01,0x21,0x02,0x42,0x00,0x21,0x03,0x03,0x40,0x20,0x03,0x21,0x04,0x20,0x02,0x21,0x03,0x20,0x02,0x20,0x04,0x7c,0x21,0x02,0x20,0x01,0x42,0x01,0x7c,0x21,0x01,0x20,0x00,0x20,0x01,0x52,0x0d,0x00,0x0b,0x20,0x02,0x0b
+            0x00,0x61,0x73,0x6d,0x01,0x00,0x00,0x00,0x01,0x05,0x01,0x60,0x01,0x7e,0x00,0x03,0x02,0x01,0x00,0x05,0x03,0x01,0x00,0x01,0x07,0x0e,0x02,0x03,0x6d,0x65,0x6d,0x02,0x00,0x04,0x66,0x69,0x62,0x6f,0x00,0x00,0x0a,0x6c,0x01,0x6a,0x01,0x01,0x7e,0x41,0x00,0x42,0x00,0x37,0x03,0x00,0x41,0x08,0x42,0x01,0x37,0x03,0x00,0x42,0x00,0x20,0x00,0x51,0x04,0x40,0x41,0x10,0x42,0x00,0x37,0x03,0x00,0x0b,0x42,0x01,0x20,0x00,0x51,0x04,0x40,0x41,0x10,0x42,0x01,0x37,0x03,0x00,0x05,0x42,0x02,0x21,0x01,0x03,0x40,0x41,0x10,0x41,0x08,0x29,0x03,0x00,0x41,0x00,0x29,0x03,0x00,0x7c,0x37,0x03,0x00,0x41,0x00,0x41,0x08,0x29,0x03,0x00,0x37,0x03,0x00,0x41,0x08,0x41,0x10,0x29,0x03,0x00,0x37,0x03,0x00,0x20,0x01,0x42,0x01,0x7c,0x21,0x01,0x20,0x01,0x20,0x00,0x57,0x0d,0x00,0x0b,0x0b,0x0b
         ]);
 
         (async function start() {
             const {module, instance} = await WebAssembly.instantiate(bytes);
             const exports = instance.exports;
+
+            let u32 = new Uint32Array(exports.mem.buffer, 0x10, 1);
 
             let $ = document.querySelector.bind(document);
             let n = 0;
@@ -61,7 +95,8 @@
             $('button').addEventListener('click', event => {
                 n++;
                 $('#n').textContent = `${n}`;
-                $('#fib').textContent = exports.fibo(BigInt(n));
+                exports.fibo(BigInt(n));
+                $('#fib').textContent = u32;
             });
         })();
     </script>
