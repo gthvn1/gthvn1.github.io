@@ -30,11 +30,14 @@
 )
 
 (func (export "run")
+  ;; The color is given by the first four bytes of F(n)
   (call $clear-screen
-    (i32.const 0xff_ec_ef_f4)) ;; ABGR format (nord6)
+    (i32.or ;; format is ABGR, set alpha to 255
+      (i32.const 0xFF000000)
+      (i32.load (i32.const 0x10))))
 )
 
-(func $fibo (export "fibo") (param $n i64)
+(func (export "fibo") (param $n i64)
   (local $step i64)
 
   ;; Init F(n-2) = 0 and F(n-1) = 1
