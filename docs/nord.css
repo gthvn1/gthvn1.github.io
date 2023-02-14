@@ -19,10 +19,10 @@
 }
 
 body {
-    background: var(--nord0);
-    color: var(--nord5);
-    margin: 10px 50px 20px;
-    font: Dekko, Aclonica, Abel, Verdana, sans-serif
+  background: var(--nord0);
+  color: var(--nord5);
+  margin: 10px 50px 20px;
+  font: Dekko, Aclonica, Abel, Verdana, sans-serif
 }
 
 a:link    { color: var(--nord7) }
@@ -35,14 +35,24 @@ h2 { color: var(--nord12) }
 h3 { color: var(--nord13) }
 
 button {
-      background-color: var(--nord10);
-      color: var(--nord6);
-      padding: 15px 32px;
-      text-align: center;
-      display: inline-block;
-      font-size: 16px;
+  background-color: var(--nord10);
+  color: var(--nord6);
+  padding: 15px 32px;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
 }
 
 .box    { color: var(--nord15) }
 .result { color: var(--nord4); font-weight: bolder }
 .debug  { color: var(--nord6); font-style: italic }
+
+/* Split the demo into two parts */
+.container { display: flex; gap: 1em }
+#split {
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  border: 1px solid var(--nord11);
+  background-color: var(--nord2);
+  flex: 1
+}

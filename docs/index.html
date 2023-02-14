@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <head>
     <link rel="stylesheet" href="nord.css">
 </head>
@@ -19,7 +20,7 @@
 
     <p>
         <a href="https://github.com/gthvn1/gthvn1.github.io/blob/master/docs/fibonacci.wat">
-        fibonacci.wat</a> wasm file is available
+            fibonacci.wat</a> wasm file is available
         <a href="https://github.com/gthvn1/gthvn1.github.io/tree/master/docs">on github</a>.
     </p>
 
@@ -33,25 +34,33 @@
         <li> <span class="box">&#9744;</span> Look at canvas </li>
     </ul>
 
-    <h2> Demo </h2>
-    <h3> Fibonacci Sequence </h3>
-    <p class="result"> -> Fibonaci(<span id="n">0</span>) = <span id="fib">0</span> </p>
-    <p class="debug">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[debug] f(<span id="a">?</span>) = <span id="fa">?</span>, f(<span id="b">?</span>) = <span id="fb">?</span></p>
-    <button>
-        Click to get the next Fibonacci sequence number
-    </button>
+    <h2> Demos </h2>
+    <section class="container">
+        <div id="split">
+            <h3> Fibonacci Sequence </h3>
+            <p class="result"> -> Fibonaci(<span id="n">0</span>) = <span id="fib">0</span> </p>
+            <p class="debug">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[debug] f(<span id="a">?</span>) = <span
+                    id="fa">?</span>, f(<span id="b">?</span>) = <span id="fb">?</span></p>
+            <button>
+                Click to get the next Fibonacci sequence number
+            </button>
+        </div>
 
-    <h3> Canvas </h3>
-
-    <ul>
-        <li> <span class="box">&#9745;</span> Create canvas </li>
-        <li> <span class="box">&#9745;</span> Draw something from JS </li>
-        <li> <span class="box">&#9745;</span> Fill the canvas from WASM </li>
-        <li> <span class="box">&#9745;</span> Make the color depend on Fibonacci(N) </li>
-        <li> <span class="box">&#9744;</span> Add interactivity </li>
-        <li> ...and do more fun things</li>
-    </ul>
-    <canvas id="canvas" width="100" height="100" style="border:1px solid #000;"></canvas>
+        <div id="split">
+            <h3> Canvas </h3>
+            <ul>
+                <li> <span class="box">&#9745;</span> Create canvas </li>
+                <li> <span class="box">&#9745;</span> Draw something from JS </li>
+                <li> <span class="box">&#9745;</span> Fill the canvas from WASM </li>
+                <li> <span class="box">&#9745;</span> Make the color depend on Fibonacci(N) </li>
+                <li> <span class="box">&#9744;</span> Add interactivity </li>
+                <li> ...and do more fun things</li>
+            </ul>
+            <center>
+                <canvas id="canvas" width="100" height="100" style="border:1px solid #000;"></canvas>
+            </center>
+        </div id="split">
+    </section>
 
     <script>
         const w = 100, h = 100;
@@ -62,7 +71,7 @@
         (async function start() {
             const response = await fetch('fibonacci.wasm');
             const moduleBytes = await response.arrayBuffer();
-            const {module, instance} = await WebAssembly.instantiate(moduleBytes);
+            const { module, instance } = await WebAssembly.instantiate(moduleBytes);
             const exports = instance.exports;
 
             // In wasm memory we put 3*64bits values at the beginning.
