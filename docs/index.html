@@ -34,7 +34,7 @@
         <ul>
             <li> <span class="box">&#9745;</span> Create canvas </li>
             <li> <span class="box">&#9745;</span> Draw something from JS </li>
-            <li> <span class="box">&#9744;</span> Fill the canvas from WASM </li>
+            <li> <span class="box">&#9745;</span> Fill the canvas from WASM </li>
             <li> <span class="box">&#9744;</span> Add interactivity </li>
             <li> ...and do more fun things</li>
         </ul>
@@ -50,46 +50,20 @@
 
     <h3> Canvas </h3>
 
+    <p>First step... fill the canvas with a color from WAT !!!</p>
     <canvas id="canvas" width="100" height="100" style="border:1px solid #000;"></canvas>
 
     <script>
         const w = 100, h = 100;
         const c = document.getElementById("canvas");
         const ctx = c.getContext("2d");
-        const imageData = ctx.createImageData(w,h);
-
-        function draw_something() {
-            // start by filling all canvas
-            ctx.beginPath();
-            ctx.rect(0,0, 100, 100);
-            ctx.fillStyle = "white";
-            ctx.fill();
-
-            // and draw some circles
-            ctx.moveTo(80,50); // Move where we start to draw the circle
-            // x, y, radius, start angle, end angle
-            ctx.beginPath();
-            ctx.arc(50, 50, 30, 0, 2 * Math.PI);
-            ctx.stroke();
-            ctx.beginPath();
-            ctx.fillStyle = "red";
-            ctx.arc(50, 50, 30, 0, Math.PI);
-            ctx.stroke();
-            ctx.fill();
-            ctx.beginPath();
-            ctx.fillStyle = "black";
-            ctx.arc(50, 50, 10, 0, 2*Math.PI);
-            ctx.stroke();
-            ctx.fill();
-        }
+        const imageData = ctx.createImageData(w, h);
 
         (async function start() {
             const response = await fetch('fibonacci.wasm');
             const moduleBytes = await response.arrayBuffer();
             const {module, instance} = await WebAssembly.instantiate(moduleBytes);
             const exports = instance.exports;
-
-            draw_something();
 
             // In wasm memory we put 3*64bits values at the beginning.
             // So let's create a view of those 24 bytes
@@ -126,7 +100,7 @@
                 requestAnimationFrame(update);
                 exports.run();
                 imageData.data.set(canvasData);
-                context.putImageData(imageData, 0, 0);
+                ctx.putImageData(imageData, 0, 0);
             })();
         })();
     </script>

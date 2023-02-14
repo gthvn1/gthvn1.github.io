@@ -12,8 +12,27 @@
 ;;   [0x1000 .. 0xAC3F] Canvas: 100 x 100 x 4
 (memory (export "mem") 1)
 
+(func $clear-screen (param $color i32)
+  (local $i i32)
+  (loop $loopBegin
+    ;; mem[0x1000 + i] = color
+    (i32.store offset=0x1000
+      (local.get $i)
+      (local.get $color))
+
+    ;; update index
+    (local.set $i
+      (i32.add (local.get $i) (i32.const 4)))
+
+    (br_if $loopBegin
+      (i32.lt_s (local.get $i) (i32.const 40000)))
+  )
+)
+
 (func (export "run")
-      )
+  (call $clear-screen
+    (i32.const 0xff_ec_ef_f4)) ;; ABGR format (nord6)
+)
 
 (func $fibo (export "fibo") (param $n i64)
   (local $step i64)
