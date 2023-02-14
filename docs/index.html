@@ -50,36 +50,35 @@
 
     <h3> Canvas </h3>
 
-    <canvas id="canvas" width="100" height="100" style="border:1px solid #000;">
-    </canvas>
+    <canvas id="canvas" width="100" height="100" style="border:1px solid #000;"></canvas>
 
     <script>
-        function draw_something() {
-            var c = document.getElementById("canvas");
-            var ctx = c.getContext("2d");
+        const w = 100, h = 100;
+        const c = document.getElementById("canvas");
+        const ctx = c.getContext("2d");
+        const imageData = ctx.createImageData(w,h);
 
-            // start by filling all canvas in red
+        function draw_something() {
+            // start by filling all canvas
             ctx.beginPath();
             ctx.rect(0,0, 100, 100);
-            ctx.fillStyle = "red";
+            ctx.fillStyle = "white";
             ctx.fill();
 
-            // Then draw triangle in green
-            ctx.beginPath();
-            ctx.fillStyle = "green";
-            ctx.moveTo(0,0);
-            ctx.lineTo(50, 100);
-            ctx.stroke(); // print the line
-            ctx.lineTo(100, 0);
-            ctx.stroke(); // print the line
-            ctx.fill();
-
-            // Finally draw a circle in blue
-            ctx.moveTo(70,50); // Move at the beginning of where we start to draw the circle
+            // and draw some circles
+            ctx.moveTo(80,50); // Move where we start to draw the circle
             // x, y, radius, start angle, end angle
             ctx.beginPath();
-            ctx.fillStyle = "blue";
-            ctx.arc(50, 50, 20, 0, 2 * Math.PI);
+            ctx.arc(50, 50, 30, 0, 2 * Math.PI);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.fillStyle = "red";
+            ctx.arc(50, 50, 30, 0, Math.PI);
+            ctx.stroke();
+            ctx.fill();
+            ctx.beginPath();
+            ctx.fillStyle = "black";
+            ctx.arc(50, 50, 10, 0, 2*Math.PI);
             ctx.stroke();
             ctx.fill();
         }
@@ -94,10 +93,13 @@
 
             // In wasm memory we put 3*64bits values at the beginning.
             // So let's create a view of those 24 bytes
-            let memView = new Uint8Array(exports.mem.buffer, 0x0, 24);
-            let buff0 = new DataView(memView.buffer, 0x0, 8);
-            let buff1 = new DataView(memView.buffer, 0x8, 8);
-            let buff2 = new DataView(memView.buffer, 0x10, 8);
+            const fibonacciData = new Uint8Array(exports.mem.buffer, 0x0, 24);
+            const buff0 = new DataView(fibonacciData.buffer, 0x0, 8);
+            const buff1 = new DataView(fibonacciData.buffer, 0x8, 8);
+            const buff2 = new DataView(fibonacciData.buffer, 0x10, 8);
+
+            // Now create a view for the canvas
+            const canvasData = new Uint8Array(exports.mem.buffer, 0x1000, w * h * 4);
 
             let $ = document.querySelector.bind(document);
             let n = 0;
@@ -119,6 +121,13 @@
 
                 $('#fib').textContent = buff2.getBigInt64(0, true);
             });
+
+            (function update() {
+                requestAnimationFrame(update);
+                exports.run();
+                imageData.data.set(canvasData);
+                context.putImageData(imageData, 0, 0);
+            })();
         })();
     </script>
 </body>

@@ -1,10 +1,19 @@
-;; Page in WASM are 64Kb
 ;; Bytes are 8-bit
+;;
 ;; Memory map:
-;;   [0x000 .. 0x0007] F(N-2): i64
-;;   [0x008 .. 0x000F] F(N-1): i64
-;;   [0x010 .. 0x0017] F(N)  : i64
+;;   The canvas size is 100x100 so we will need 40_000 bytes.
+;;   Page in WASM are 64KB [0x0000..0xFFFF] so we will use the
+;;   bottom of the memory is used for Fibonacci (We store 3 i64)
+;;   and 40Kb started from 0x0100 for the canvas:
+;;
+;;   [0x0000 .. 0x0007] F(N-2): i64
+;;   [0x0008 .. 0x000F] F(N-1): i64
+;;   [0x0010 .. 0x0017] F(N)  : i64
+;;   [0x1000 .. 0xAC3F] Canvas: 100 x 100 x 4
 (memory (export "mem") 1)
+
+(func (export "run")
+      )
 
 (func $fibo (export "fibo") (param $n i64)
   (local $step i64)
